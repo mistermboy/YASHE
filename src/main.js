@@ -9,7 +9,7 @@ window.console = window.console || {
  * Load libraries and utils
  */
 const $ = require('jquery');
-const codeMirror = require('codemirror');
+const CodeMirror = require('codemirror');
 const utils = require('./utils/baseUtils.js');
 const yutils = require('yasgui-utils');
 const prefixUtils = require('./utils/prefixUtils.js');
@@ -39,7 +39,7 @@ require('../lib/grammar/tokenizer.js');
  * Pass a DOM element as argument to append the editor to,
  * and (optionally) pass along config settings
  * (see the YASHE.defaults object below,
- * as well as the regular codeMirror documentation,
+ * as well as the regular CodeMirror documentation,
  * for more information on configurability)
  *
  * @constructor
@@ -53,7 +53,7 @@ const root = (module.exports = function(parent, config) {
     class: 'yashe',
   }).appendTo($(parent));
   config = extendConfig(config);
-  const yashe = extendCmInstance(codeMirror(rootEl[0], config));
+  const yashe = extendCmInstance(CodeMirror(rootEl[0], config));
   postProcessCmElement(yashe);
   return yashe;
 });
@@ -63,7 +63,7 @@ const root = (module.exports = function(parent, config) {
  * Extend config object, which we will pass on to the CM constructor later on.
  * Need this, to make sure our own 'onBlur' etc events do not get overwritten by
  * people who add their own onblur events to the config Additionally, need this
- * to include the CM defaults ourselves. codeMirror has a method for including
+ * to include the CM defaults ourselves. CodeMirror has a method for including
  * defaults, but we can't rely on that one: it assumes flat config object, where
  * we have nested objects (e.g. the persistency option)
  *
@@ -348,8 +348,8 @@ const checkSyntax = function(yashe) {
 
 // ---- Static Utils -----
 
-// first take all codeMirror references and store them in the YASHE object
-$.extend(root, codeMirror);
+// first take all CodeMirror references and store them in the YASHE object
+$.extend(root, CodeMirror);
 
 // add registrar for autocompleters
 root.Autocompleters = {};
@@ -395,7 +395,7 @@ root.fromTextArea = function(textAreaEl, config) {
       .append($(textAreaEl));
 
 
-  const yashe = extendCmInstance(codeMirror.fromTextArea(textAreaEl, config));
+  const yashe = extendCmInstance(CodeMirror.fromTextArea(textAreaEl, config));
   postProcessCmElement(yashe);
 
   return yashe;
@@ -440,7 +440,7 @@ root.doAutoFormat = function(yashe) {
 require('./config/defaults.js');
 root.$ = $;
 root.version = {
-  'codeMirror': codeMirror.version,
+  'CodeMirror': CodeMirror.version,
   'YASHE': require('../package.json').version,
   'jquery': $.fn.jquery,
   'yasgui-utils': yutils.version,
@@ -497,9 +497,19 @@ $(document).ready(function() {
                         )
                       )
                     )
-                  )
+                  ).append($('<button>Validate</button>').click(()=>validate())
+                  ).append($('<div id="shapeMap">'))
                 )
               )
+
+
+var shapeMap = CodeMirror(document.getElementById('shapeMap'),
+{
+  lineNumbers:true,
+  mode: "htmlmixed"
+});
+
+shapeMap.refresh()
 
 var modal = document.getElementById("myModal");
 
@@ -522,7 +532,7 @@ window.onclick = function(event) {
 
 })
 
-
+function validate(){
 axios.post('http://rdfshape.weso.es:8080/api/schema/validate', formData).then(response => response.data)
             .then((data) => {
 
@@ -545,4 +555,7 @@ axios.post('http://rdfshape.weso.es:8080/api/schema/validate', formData).then(re
                 console.log('Error doing server request');
                 console.log(error);
             });
+
+
+}
 

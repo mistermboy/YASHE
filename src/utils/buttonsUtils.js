@@ -151,12 +151,12 @@ var drawButtons = function(yashe){
 
 
 
-    var endpointButton = $("<div>", {
+    var validateButton = $("<div>", {
       class: "downloadBtns"
     }).append($(yutils.svg.getElement(imgs.endpoint))
-    .addClass("yashe_endpointdBtn")
-    .attr('id','endpointBtn')
-    .attr("title", "Endpoint")
+    .addClass("yashe_validateBtn")
+    .attr('id','validateBtn')
+    .attr("title", "Validate")
     .click(function(event) {
         var modal = document.getElementById("myModal");
        modal.style.display = "block";
@@ -164,7 +164,7 @@ var drawButtons = function(yashe){
 
 
   
-    yashe.buttons.append(endpointButton); 
+    yashe.buttons.append(validateButton); 
 
     //Draw buttons
     if(yashe.options.showUploadButton){
