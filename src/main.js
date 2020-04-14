@@ -445,3 +445,60 @@ root.version = {
   'jquery': $.fn.jquery,
   'yasgui-utils': yutils.version,
 };
+
+function params2Form(params) {
+    let formData = new FormData()
+    Object.keys(params).forEach(key => {
+        formData.append(key,params[key])
+    });
+    
+    return formData;
+}
+
+
+const axios = require('axios');
+
+var params ={
+  "activeTab": "#dataTextArea",
+  "dataFormat": "TURTLE",
+  "data": "",
+  "dataFormatTextArea": "TURTLE",
+  "activeSchemaTab": "#schemaTextArea",
+  "schemaEmbedded": false,
+  "schemaFormat": "ShExC",
+  "schema": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>PREFIX wd: <http://www.wikidata.org/entity/>PREFIX wdt: <http://www.wikidata.org/prop/direct/>start = @<human><human> EXTRA wdt:P31 {  wdt:P31 [wd:Q5] *; }",
+  "schemaFormatTextArea": "ShExC",
+  "shapeMapActiveTab": "#shapeMapTextArea",
+  "shapeMapFormat": "Compact",
+  "shapeMap": "<https://www.wikidata.org/wiki/Q1>@start",
+  "shapeMapFormatTextArea": "Compact",
+  "schemaEngine": "ShEx",
+  "triggerMode": "shapeMap"
+}
+
+let formData = params2Form(params);
+console.log(formData)
+axios.post('http://rdfshape.weso.es:8080/api/schema/validate', formData).then(response => response.data)
+            .then((data) => {
+
+                
+                Object.keys(data.shapeMap).map(s=>{
+                  var el = data.shapeMap[s];
+                  console.log( $('#tableBody'))
+                  $('#tableBody').append(
+                    $('<tr>').append(
+                      $('<td>').text(el.node)
+                    ).append(
+                      $('<td>').text(el.shape)
+                    ).append(
+                      $('<td>').text(el.status)
+                    )
+                  )
+                })
+            })
+            .catch(function (error) {
+                setLoading(false);
+                setError(error.message);
+                console.log('Error doing server request');
+                console.log(error);
+            });
