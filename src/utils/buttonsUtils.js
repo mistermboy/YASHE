@@ -159,7 +159,7 @@ var drawButtons = function(yashe){
     .attr("title", "Validate")
     .click(function(event) {
         var modal = document.getElementById("myModal");
-       modal.style.display = "block";
+        modal.style.display = "block";
     }));
 
 
