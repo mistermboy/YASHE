@@ -24,7 +24,8 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
   /* IE7 hack to prevent it from returning funny offsetTops on the spans */
   /* Used to force a border model for a node */
   /* See issue #2901 */
-  /* Help users use markselection to safely style text background */ }
+  /* Help users use markselection to safely style text background */
+  /* Shutter Out Horizontal */ }
   .yashe .cm-s-wiki .cm-shape {
     color: #0F7A50; }
   .yashe .cm-s-wiki .cm-keyword {
@@ -648,6 +649,36 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
     display: inline-block; }
   .yashe .yashe_validateBtn {
     margin-right: 8px; }
+  .yashe .validateBtn {
+    display: inline-block;
+    vertical-align: middle;
+    transform: perspective(1px) translateZ(0);
+    width: 100%;
+    font-size: 25px;
+    font-weight: bold;
+    border: 1px solid gray;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    position: relative;
+    background-color: #2098D1;
+    transition-property: color;
+    transition-duration: 0.3s;
+    color: white; }
+  .yashe .validateBtn:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #4fa3f1;
+    transform: scaleX(0);
+    transform-origin: 50%;
+    transition-property: transform;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out; }
+  .yashe .validateBtn:hover:before, .yashe .validateBtn:focus:before, .yashe .validateBtn:active:before {
+    transform: scaleX(1); }
   .yashe .CodeMirror {
     line-height: 1.5em;
     border: 1px solid #d1d1d1; }

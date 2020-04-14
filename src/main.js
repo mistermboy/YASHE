@@ -461,9 +461,11 @@ const axios = require('axios');
 $(document).ready(function() {
   $('.yashe').prepend(
                 $('<div id="myModal" class="modal">').append(
-                  $('<div id="subModal" class="modal-content">')
+                  $('<div class="modal-content">')
                   .append($('<span class="close">&times;</span>'))
-                   .append($('<div id="shapeMap">'))
+                  .append($('<div id="modalContent">').append(
+                      $('<div id="shapeMap">'))
+                  )
                 
                 )
               )
@@ -474,11 +476,18 @@ var shapeMap = CodeMirror(document.getElementById('shapeMap'),
   lineNumbers:true,
 });
 
-$('#subModal')
-.prepend($('<button>Validate</button>').click(()=>validate(shapeMap)))                 
 
+
+$('#modalContent')
+.append($('<button class="validateBtn">Validate</button>').click(()=>validate(shapeMap)))                 
+
+
+shapeMap.setSize(null,50);
+shapeMap.setValue("<https://www.wikidata.org/wiki/Q1>@start");
 
 shapeMap.refresh();
+
+yashe.setValue("PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n PREFIX wd: <http://www.wikidata.org/entity/> \n PREFIX wdt: <http://www.wikidata.org/prop/direct/>\n \n start = @<human>\n \n <human> CLOSED {\n wdt:P31 [wd:Q5] *;\n \n }\n")
 
 var modal = document.getElementById("myModal");
 
@@ -502,7 +511,28 @@ window.onclick = function(event) {
 })
 
 function validate(shapeMap){
-  
+
+  let schemaContent = yashe.getValue();
+  let shapeMapContent = shapeMap.getValue();
+
+/*   var params ={
+  "activeTab": "#dataTextArea",
+  "dataFormat": "TURTLE",
+  "data": "",
+  "dataFormatTextArea": "TURTLE",
+  "activeSchemaTab": "#schemaTextArea",
+  "schemaEmbedded": false,
+  "schemaFormat": "ShExC",
+  "schema": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX wd: <http://www.wikidata.org/entity/> PREFIX wdt: <http://www.wikidata.org/prop/direct/> start = @<human> <human> CLOSED { wdt:P31 [wd:Q8] *; }",
+  "schemaFormatTextArea": "ShExC",
+  "shapeMapActiveTab": "#shapeMapTextArea",
+  "shapeMapFormat": "Compact",
+  "shapeMap": "<https://www.wikidata.org/wiki/Q51602692>@start",
+  "shapeMapFormatTextArea": "Compact",
+  "schemaEngine": "ShEx",
+  "triggerMode": "shapeMap",
+} */
+
   var params ={
   "activeTab": "#dataTextArea",
   "dataFormat": "TURTLE",
@@ -511,22 +541,28 @@ function validate(shapeMap){
   "activeSchemaTab": "#schemaTextArea",
   "schemaEmbedded": false,
   "schemaFormat": "ShExC",
-  "schema": yashe.getValue(),
+  "schema": schemaContent,
   "schemaFormatTextArea": "ShExC",
   "shapeMapActiveTab": "#shapeMapTextArea",
   "shapeMapFormat": "Compact",
-  "shapeMap": shapeMap.getValue(),
+  "shapeMap": shapeMapContent,
   "shapeMapFormatTextArea": "Compact",
   "schemaEngine": "ShEx",
-  "triggerMode": "shapeMap"
+  "triggerMode": "shapeMap",
 }
 
 let formData = params2Form(params);
 
-axios.post('http://rdfshape.weso.es:8080/api/schema/validate', formData).then(response => response.data)
+
+    axios({
+            method: 'post',
+            url: 'http://rdfshape.weso.es:8080/api/schema/validate',
+            data: formData,
+            config: { headers: {'Content-Type': 'multipart/form-data' }}
+        }).then(response => response.data)
             .then((data) => {
                 $('#tableBody').remove();
-                $('#subModal').prepend(
+                $('#modalContent').prepend(
                     $('<table id="tableBody" class="table">').append(
                       $('<thead>').append(
                         $('<tr>').append(
@@ -539,11 +575,12 @@ axios.post('http://rdfshape.weso.es:8080/api/schema/validate', formData).then(re
                       )
                     )
                 )
+                console.log(data)
                 Object.keys(data.shapeMap).map(s=>{
                   var el = data.shapeMap[s];
                   $('#tableBody').append(
                     $('<tr>').append(
-                      $('<td>').text(el.node)
+                      $('<td>').append($('<a href="'+el.node.substring(1,el.node.length-1)+'">').text(el.node))
                     ).append(
                       $('<td>').text(el.shape)
                     ).append(
@@ -553,8 +590,7 @@ axios.post('http://rdfshape.weso.es:8080/api/schema/validate', formData).then(re
                 })
             })
             .catch(function (error) {
-                setLoading(false);
-                setError(error.message);
+               
                 console.log('Error doing server request');
                 console.log(error);
             });

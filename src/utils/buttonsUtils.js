@@ -153,13 +153,14 @@ var drawButtons = function(yashe){
 
     var validateButton = $("<div>", {
       class: "downloadBtns"
-    }).append($(yutils.svg.getElement(imgs.endpoint))
+    }).append($(yutils.svg.getElement(imgs.validate))
     .addClass("yashe_validateBtn")
     .attr('id','validateBtn')
     .attr("title", "Validate")
     .click(function(event) {
         var modal = document.getElementById("myModal");
         modal.style.display = "block";
+        $('#tableBody').remove();
     }));
 
 
