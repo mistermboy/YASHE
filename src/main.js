@@ -477,14 +477,63 @@ var params ={
 }
 
 let formData = params2Form(params);
-console.log(formData)
+
+
+
+$(document).ready(function() {
+  $('.yashe').prepend(
+                $('<div id="myModal" class="modal">').append(
+                  $('<div id="subModal" class="modal-content">').append(
+                    $('<span class="close">&times;</span>')
+                  ).append(
+                    $('<table id="tableBody" class="table">').append(
+                      $('<thead>').append(
+                        $('<tr>').append(
+                          $('<th scope="col">Id</th>')
+                        ).append(
+                          $('<th scope="col">Node</th>')
+                        ).append(
+                          $('<th scope="col">Shape</th>')
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+})
+
+
 axios.post('http://rdfshape.weso.es:8080/api/schema/validate', formData).then(response => response.data)
             .then((data) => {
 
-                
                 Object.keys(data.shapeMap).map(s=>{
                   var el = data.shapeMap[s];
-                  console.log( $('#tableBody'))
                   $('#tableBody').append(
                     $('<tr>').append(
                       $('<td>').text(el.node)
@@ -502,3 +551,4 @@ axios.post('http://rdfshape.weso.es:8080/api/schema/validate', formData).then(re
                 console.log('Error doing server request');
                 console.log(error);
             });
+
