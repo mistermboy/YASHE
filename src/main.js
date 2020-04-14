@@ -483,22 +483,10 @@ let formData = params2Form(params);
 $(document).ready(function() {
   $('.yashe').prepend(
                 $('<div id="myModal" class="modal">').append(
-                  $('<div id="subModal" class="modal-content">').append(
-                    $('<span class="close">&times;</span>')
-                  ).append(
-                    $('<table id="tableBody" class="table">').append(
-                      $('<thead>').append(
-                        $('<tr>').append(
-                          $('<th scope="col">Id</th>')
-                        ).append(
-                          $('<th scope="col">Node</th>')
-                        ).append(
-                          $('<th scope="col">Shape</th>')
-                        )
-                      )
-                    )
-                  ).append($('<button>Validate</button>').click(()=>validate())
-                  ).append($('<div id="shapeMap">'))
+                  $('<div id="subModal" class="modal-content">')
+                  .append($('<span class="close">&times;</span>'))
+                  .append($('<button>Validate</button>').click(()=>validate()))
+                  .append($('<div id="shapeMap">'))
                 )
               )
 
@@ -535,7 +523,20 @@ window.onclick = function(event) {
 function validate(){
 axios.post('http://rdfshape.weso.es:8080/api/schema/validate', formData).then(response => response.data)
             .then((data) => {
-
+                $('#tableBody').remove();
+                $('#subModal').prepend(
+                    $('<table id="tableBody" class="table">').append(
+                      $('<thead>').append(
+                        $('<tr>').append(
+                          $('<th scope="col">Id</th>')
+                        ).append(
+                          $('<th scope="col">Node</th>')
+                        ).append(
+                          $('<th scope="col">Shape</th>')
+                        )
+                      )
+                    )
+                )
                 Object.keys(data.shapeMap).map(s=>{
                   var el = data.shapeMap[s];
                   $('#tableBody').append(
