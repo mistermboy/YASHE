@@ -479,7 +479,10 @@ $('#modalContent')
 
 
 yasme.setSize(null,100);
-yasme.setValue("<https://www.wikidata.org/wiki/Q1>@start");
+yasme.setValue('<https://www.wikidata.org/wiki/Q1>@<human>,\n'+
+'<https://www.wikidata.org/wiki/Q2>@<mal>,\n'+
+'<https://www.wikidata.org/wiki/Q3>@<human>,\n'+
+'<https://www.wikidata.org/wiki/Q4>@start');
 
 yasme.refresh();
 
