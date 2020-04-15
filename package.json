@@ -51,15 +51,18 @@
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0",
     "vinyl-transform": "^1.0.0",
-    "watchify": "^3.7.0"
+    "watchify": "^3.7.0",
+    "yasme": "^1.0.2"
   },
   "bugs": "https://github.com/weso/YASHE/issues/",
   "keywords": [
-    "JavaScript",
     "ShEx",
+    "Wikidata",
     "Editor",
     "Semantic Web",
-    "Linked Data"
+    "Linked Data",
+    "JavaScript",
+    "CodeMirror"
   ],
   "maintainers": [
     {

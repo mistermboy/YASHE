@@ -10,6 +10,7 @@ window.console = window.console || {
  */
 const $ = require('jquery');
 const CodeMirror = require('codemirror');
+const YASME = require('yasme');
 const utils = require('./utils/baseUtils.js');
 const yutils = require('yasgui-utils');
 const prefixUtils = require('./utils/prefixUtils.js');
@@ -18,6 +19,7 @@ const syntaxUtils = require('./utils/syntaxUtils.js');
 const tooltipUtils = require('./utils/tooltipUtils.js');
 const formatUtils = require('./utils/formatUtils.js');
 const buttonsUtils = require('./utils/buttonsUtils.js');
+const validateUtils = require('./utils/validateUtils.js');
 const prefixFold = require('./utils/prefixFold.js');
 const autocompletersBase = require('./autocompleters/autocompleterBase.js');
 const Clipboard = require('clipboard');
@@ -446,17 +448,7 @@ root.version = {
   'yasgui-utils': yutils.version,
 };
 
-function params2Form(params) {
-    let formData = new FormData()
-    Object.keys(params).forEach(key => {
-        formData.append(key,params[key])
-    });
-    
-    return formData;
-}
 
-
-const axios = require('axios');
 
 $(document).ready(function() {
   $('.yashe').prepend(
@@ -474,7 +466,7 @@ $(document).ready(function() {
 
 $('#loader').hide();
 
-var shapeMap = CodeMirror(document.getElementById('shapeMap'),
+var yasme = YASME(document.getElementById('shapeMap'),
 {
   lineNumbers:true,
 });
@@ -482,13 +474,14 @@ var shapeMap = CodeMirror(document.getElementById('shapeMap'),
 
 
 $('#modalContent')
-.append($('<button class="validateBtn">Validate</button>').click(()=>validate(shapeMap)))                 
+.append($('<button class="validateBtn">Validate</button>')
+        .click(()=>validateUtils.validate(yasme)))                 
 
 
-shapeMap.setSize(null,50);
-shapeMap.setValue("<https://www.wikidata.org/wiki/Q1>@start");
+yasme.setSize(null,100);
+yasme.setValue("<https://www.wikidata.org/wiki/Q1>@start");
 
-shapeMap.refresh();
+yasme.refresh();
 
 yashe.setValue("PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n PREFIX wd: <http://www.wikidata.org/entity/> \n PREFIX wdt: <http://www.wikidata.org/prop/direct/>\n \n start = @<human>\n \n <human> CLOSED {\n wdt:P31 [wd:Q5] *;\n \n }\n")
 
@@ -513,101 +506,4 @@ window.onclick = function(event) {
 
 })
 
-function validate(shapeMap){
-  $('#loader').show();
-  $('#modalContent').hide();
-
- 
-  let schemaContent = yashe.getValue();
-  let shapeMapContent = shapeMap.getValue();
-
-/*   var params ={
-  "activeTab": "#dataTextArea",
-  "dataFormat": "TURTLE",
-  "data": "",
-  "dataFormatTextArea": "TURTLE",
-  "activeSchemaTab": "#schemaTextArea",
-  "schemaEmbedded": false,
-  "schemaFormat": "ShExC",
-  "schema": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX wd: <http://www.wikidata.org/entity/> PREFIX wdt: <http://www.wikidata.org/prop/direct/> start = @<human> <human> CLOSED { wdt:P31 [wd:Q8] *; }",
-  "schemaFormatTextArea": "ShExC",
-  "shapeMapActiveTab": "#shapeMapTextArea",
-  "shapeMapFormat": "Compact",
-  "shapeMap": "<https://www.wikidata.org/wiki/Q51602692>@start",
-  "shapeMapFormatTextArea": "Compact",
-  "schemaEngine": "ShEx",
-  "triggerMode": "shapeMap",
-} */
-
-  var params ={
-  "activeTab": "#dataTextArea",
-  "dataFormat": "TURTLE",
-  "data": "",
-  "dataFormatTextArea": "TURTLE",
-  "activeSchemaTab": "#schemaTextArea",
-  "schemaEmbedded": false,
-  "schemaFormat": "ShExC",
-  "schema": schemaContent,
-  "schemaFormatTextArea": "ShExC",
-  "shapeMapActiveTab": "#shapeMapTextArea",
-  "shapeMapFormat": "Compact",
-  "shapeMap": shapeMapContent,
-  "shapeMapFormatTextArea": "Compact",
-  "schemaEngine": "ShEx",
-  "triggerMode": "shapeMap",
-}
-
-let formData = params2Form(params);
-
-
-    axios({
-            method: 'post',
-            url: 'http://rdfshape.weso.es:8080/api/schema/validate',
-            data: formData,
-            config: { headers: {'Content-Type': 'multipart/form-data' }}
-        }).then(response => response.data)
-            .then((data) => {
-                $('#tableBody').remove();
-                $('#modalContent').prepend(
-                    $('<table id="tableBody" class="table">').append(
-                      $('<thead>').append(
-                        $('<tr>').append(
-                          $('<th scope="col">Id</th>')
-                        ).append(
-                          $('<th scope="col">Node</th>')
-                        ).append(
-                          $('<th scope="col">Shape</th>')
-                        )
-                      )
-                    )
-                )
-                console.log(data)
-                Object.keys(data.shapeMap).map(s=>{
-                  var el = data.shapeMap[s];
-                  $('#tableBody').append(
-                    $('<tr>').append(
-                      $('<td>').append($('<a href="'+el.node.substring(1,el.node.length-1)+'">').text(el.node))
-                    ).append(
-                      $('<td>').text(el.shape)
-                    ).append(
-                      $('<td>').text(el.status)
-                    )
-                  )
-                })
-
-                setTimeout(() => {
-                  $('#loader').hide();
-                  $('#modalContent').show();  
-                }, 500);
-                
-            })
-            .catch(function (error) {
-               
-                console.log('Error doing server request');
-                console.log(error);
-            });
-
-
- 
-}
 
