@@ -454,11 +454,11 @@ $(document).ready(function() {
   $('.yashe').prepend(
                 $('<div id="myModal" class="modal">').append(
                   $('<div class="modal-content">')
-                  .append($('<span class="close">&times;</span>'))
-                  .append($('<div id="loader" class="loaderCont"><div class="loader"></div></div>'))
-                  .append($('<div id="modalContent">').append(
-                      $('<div id="shapeMap">'))
-                  )
+                    .append($('<span class="close">&times;</span>'))
+                    .append($('<div id="loader" class="loaderCont"><div class="loader"></div></div>'))
+                    .append($('<div id="modalContent">')
+                      .append($('<div id="shapeMap">')))
+                  
                 
                 )
               )

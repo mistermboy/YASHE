@@ -47,30 +47,36 @@ let formData = params2Form(params);
             config: { headers: {'Content-Type': 'multipart/form-data' }}
         }).then(response => response.data)
             .then((data) => {
-                $('#tableBody').remove();
+                $('#table').remove();
                 $('#modalContent').prepend(
-                    $('<table id="tableBody" class="table">').append(
-                      $('<thead id="thead">').append(
-                        $('<tr>').append(
-                          $('<th scope="col">Id</th>')
-                        ).append(
-                          $('<th scope="col">Node</th>')
-                        ).append(
-                          $('<th scope="col">Shape</th>')
-                        )
-                      )
-                    )
+                  $('<div class="table-responsive">'+
+                      '<table id="table" class="table table-striped">'+ 
+                        '<thead id="thead" class="thead-dark">'+ 
+                          '<tr>'+ 
+                            '<th scope="col">Id</th>'+ 
+                            '<th scope="col">Node</th>'+ 
+                            '<th scope="col">Shape</th>'+ 
+                            '<th scope="col">Details</th>'+ 
+                          '</tr>'+ 
+                        '</thead>'+ 
+                      '</table>'+
+                    '<div>')
                 )
-                console.log(data)
+              
                 Object.keys(data.shapeMap).map(s=>{
                   var el = data.shapeMap[s];
-                  $('#thead').append(
-                    $('<tr>').append(
-                      $('<td>').append($('<a href="'+el.node.substring(1,el.node.length-1)+'">').text(el.node))
-                    ).append(
-                      $('<td>').text(el.shape)
-                    ).append(
-                      $('<td>').text(el.status)
+                  $('#table').append(
+                    $('<tbody>')
+                    .append(
+                      $('<tr>').append(
+                        $('<td>').text(s)
+                      ).append(
+                        $('<td>').append($('<a href="'+el.node.substring(1,el.node.length-1)+'">').text(el.node))
+                      ).append(
+                        $('<td>').text(el.shape)
+                      ).append(
+                        $('<td>').text(el.status)
+                      )
                     )
                   )
                 })

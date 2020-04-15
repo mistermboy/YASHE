@@ -2,6 +2,7 @@
   position: relative;
   /* WIKIDATA THEME */
   /* DARK THEME  */
+  /* DARK THEME  */
   /* BASICS */
   /* PADDING */
   /* GUTTER */
@@ -26,9 +27,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
   /* See issue #2901 */
   /* Help users use markselection to safely style text background */
   /* Shutter Out Horizontal */
-  /* Modal Content/Box */
-  /* The Modal (background) */
-  /* The Close Button */ }
+  /* The Modal (background) */ }
   .yashe .cm-s-wiki .cm-shape {
     color: #0F7A50; }
   .yashe .cm-s-wiki .cm-keyword {
@@ -90,6 +89,55 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
     color: #6d0f7a; }
   .yashe .cm-s-wiki .cm-prefixDelcIRI {
     color: #6d0f7a; }
+  .yashe .cm-s-wikiMap .cm-keyword {
+    color: #f00 !important; }
+  .yashe .cm-s-wikiMap .cm-atom {
+    color: #219 !important; }
+  .yashe .cm-s-wikiMap .cm-number {
+    color: #085 !important; }
+  .yashe .cm-s-wikiMap .cm-def {
+    color: #00f !important; }
+  .yashe .cm-s-wikiMap .cm-variable,
+  .yashe .cm-s-wikiMap .cm-property,
+  .yashe .cm-s-wikiMap .cm-operator {
+    color: #05a !important; }
+  .yashe .cm-s-wikiMap .cm-variable-2 {
+    color: #0F7A50 !important; }
+  .yashe .cm-s-wikiMap .cm-variable-3 {
+    color: #05a !important; }
+  .yashe .cm-s-wikiMap .cm-comment {
+    color: #999 !important; }
+  .yashe WS
+.cm-s-wikiMap .cm-string {
+    color: #b98003 !important; }
+  .yashe .cm-s-wikiMap .cm-string-2 {
+    color: #05a !important; }
+  .yashe .cm-s-wikiMap .cm-meta {
+    color: #555 !important; }
+  .yashe .cm-s-wikiMap .cm-qualifier {
+    color: #555 !important; }
+  .yashe .cm-s-wikiMap .cm-builtin {
+    color: #30a !important; }
+  .yashe .cm-s-wikiMap .cm-bracket {
+    color: #997 !important; }
+  .yashe .cm-s-wikiMap .cm-tag {
+    color: #170 !important; }
+  .yashe .cm-s-wikiMap .cm-attribute {
+    color: #00c !important; }
+  .yashe .cm-s-wikiMap .cm-hr {
+    color: #999 !important; }
+  .yashe .cm-s-wikiMap .cm-link {
+    color: #00c !important; }
+  .yashe .cm-s-wikiMap .cm-punc {
+    color: black !important; }
+  .yashe .cm-s-wikiMap .cm-logical {
+    color: #f00 !important; }
+  .yashe .cm-s-wikiMap .cm-at {
+    color: #0F7A50 !important; }
+  .yashe .cm-s-wikiMap .cm-prefixDelcAlias {
+    color: #6d0f7a !important; }
+  .yashe .cm-s-wikiMap .cm-prefixDelcIRI {
+    color: #6d0f7a !important; }
   .yashe .cm-s-dark.CodeMirror {
     background: #2B2B2B;
     color: #A9B7C6;
@@ -150,7 +198,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
   .yashe .cm-s-dark .cm-logical {
     color: #B271FF; }
   .yashe .cm-s-dark .cm-at {
-    color: #68BEEB; }
+    color: #eb68da; }
   .yashe .cm-s-dark .cm-prefixDelcAlias {
     color: #f8c4ffc0; }
   .yashe .cm-s-dark .cm-prefixDelcIRI {
@@ -176,6 +224,86 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
     background: #214283; }
   .yashe .CodeMirror-hints.dark {
     color: #9C9E9E;
+    background-color: #3B3E3F !important; }
+  .yashe .CodeMirror-hints.dark .CodeMirror-hint-active {
+    background-color: #494D4E !important;
+    color: #9C9E9E !important; }
+  .yashe .cm-s-darkMap.CodeMirror {
+    background: #2B2B2B !important;
+    color: #A9B7C6 !important;
+    border: 10px !important; }
+  .yashe .cm-s-darkMap .cm-shape {
+    color: #68BEEB !important; }
+  .yashe .cm-s-darkMap .cm-keyword {
+    color: #f00 !important; }
+  .yashe .cm-s-darkMap .cm-atom {
+    color: #219 !important; }
+  .yashe .cm-s-darkMap .cm-number {
+    color: #E5F439 !important; }
+  .yashe .cm-s-darkMap .cm-def {
+    color: #00f !important; }
+  .yashe .cm-s-darkMap .cm-variable,
+  .yashe .cm-s-darkMap .cm-punctuation,
+  .yashe .cm-s-darkMap .cm-property,
+  .yashe .cm-s-darkMap .cm-operator {
+    color: #05a !important; }
+  .yashe .cm-s-darkMap .cm-variable-2 {
+    color: #68BEEB !important; }
+  .yashe .cm-s-darkMap .cm-variable-3 {
+    color: #68BEEB !important; }
+  .yashe .cm-s-darkMap .cm-comment {
+    color: #999 !important; }
+  .yashe .cm-s-darkMap .cm-string {
+    color: #b98003 !important; }
+  .yashe .cm-s-darkMap .cm-string-2 {
+    color: #7DB647 !important; }
+  .yashe .cm-s-darkMap .cm-meta {
+    color: #555 !important; }
+  .yashe .cm-s-darkMap .cm-qualifier {
+    color: #555 !important; }
+  .yashe .cm-s-darkMap .cm-builtin {
+    color: #30a !important; }
+  .yashe .cm-s-darkMap .cm-bracket {
+    color: #997 !important; }
+  .yashe .cm-s-darkMap .cm-tag {
+    color: #170 !important; }
+  .yashe .cm-s-darkMap .cm-attribute {
+    color: #00c !important; }
+  .yashe .cm-s-darkMap .cm-hr {
+    color: #999 !important; }
+  .yashe .cm-s-darkMap .cm-link {
+    color: #00c !important; }
+  .yashe .cm-s-darkMap .cm-punc {
+    color: #FFFFFF !important; }
+  .yashe .cm-s-darkMap .cm-logical {
+    color: #B271FF !important; }
+  .yashe .cm-s-darkMap .cm-at {
+    color: #72e47b !important; }
+  .yashe .cm-s-darkMap .cm-prefixDelcAlias {
+    color: #f8c4ffc0 !important; }
+  .yashe .cm-s-darkMap .cm-prefixDelcIRI {
+    color: #f8c4ffc0 !important; }
+  .yashe .cm-s-darkMap .CodeMirror-cursor {
+    border-left: 1px solid #A9B7C6; }
+  .yashe .cm-s-darkMap .CodeMirror-activeline-background {
+    background: #323232; }
+  .yashe .cm-s-darkMap .CodeMirror-gutters {
+    background: #313335;
+    border-right: 1px solid #313335; }
+  .yashe .cm-s-darkMap .CodeMirror-guttermarker {
+    color: #FFEE80; }
+  .yashe .cm-s-darkMap .CodeMirror-guttermarker-subtle {
+    color: #D0D0D0; }
+  .yashe .cm-s-darkMap .CodeMirrir-linenumber {
+    color: #606366; }
+  .yashe .cm-s-darkMap .CodeMirror-matchingbracket {
+    background-color: #3B514D;
+    color: #FFEF28 !important;
+    font-weight: bold; }
+  .yashe .cm-s-darkMap div.CodeMirror-selected {
+    background: #214283; }
+  .yashe .CodeMirror-hints.dark {
+    color: #9C9E9E !important;
     background-color: #3B3E3F !important; }
   .yashe .CodeMirror-hints.dark .CodeMirror-hint-active {
     background-color: #494D4E !important;
@@ -754,39 +882,6 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
     white-space: pre-wrap;
     /* css-3 */
     white-space: normal; }
-  .yashe .notificationLoader {
-    width: 18px;
-    height: 18px;
-    vertical-align: middle; }
-  .yashe .loaderCont {
-    display: grid;
-    justify-content: center;
-    margin-top: -5px;
-    margin-bottom: 50px; }
-  .yashe .loader {
-    border: 16px solid #f3f3f3;
-    /* Light grey */
-    border-top: 16px solid #3498db;
-    /* Blue */
-    border-radius: 50%;
-    width: 160px;
-    height: 160px;
-    animation: spin 0.9s linear infinite; }
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg); }
-  100% {
-    transform: rotate(360deg); } }
-  .yashe .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 50%;
-    display: grid;
-    grid-template-columns: 100%; }
   .yashe .modal {
     display: none;
     /* Hidden by default */
@@ -806,17 +901,58 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
     /* Fallback color */
     background-color: rgba(0, 0, 0, 0.4);
     /* Black w/ opacity */ }
-  .yashe .close {
+  .yashe .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    /* 15% from the top and centered */
+    border: 1px solid #888;
+    width: 50%;
+    padding: 20px;
     display: grid;
-    justify-content: flex-end;
+    grid-template-columns: 100%; }
+  .yashe .close {
     color: #aaa;
     font-size: 28px;
-    font-weight: bold; }
+    font-weight: bold;
+    position: absolute;
+    right: 5px;
+    top: 0px; }
   .yashe .close:hover,
   .yashe .close:focus {
     color: black;
     text-decoration: none;
     cursor: pointer; }
+  .yashe .notificationLoader {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle; }
+  .yashe .loaderCont {
+    display: grid;
+    justify-content: center;
+    margin-bottom: 20px; }
+  .yashe .loader {
+    border: 16px solid #f3f3f3;
+    /* Light grey */
+    border-top: 16px solid #3498db;
+    /* Blue */
+    border-radius: 50%;
+    width: 160px;
+    height: 160px;
+    animation: spin 0.9s linear infinite; }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
+  .yashe .table {
+    margin-top: 8px; }
+  .yashe .thead-dark {
+    color: #fff;
+    background-color: #343a40;
+    border-color: #454d55; }
+  .yashe .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05); }
 
 .CodeMirror-hints {
   position: absolute;

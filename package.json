@@ -17,7 +17,7 @@
     "update-interactive": "npm-check --skip-unused -u"
   },
   "devDependencies": {
-    "bootstrap-sass": "^3.3.7",
+    "bootstrap-sass": "^3.4.1",
     "browserify": "^16.5.0",
     "browserify-shim": "^3.8.12",
     "browserify-transform-tools": "^1.6.0",
@@ -52,7 +52,7 @@
     "vinyl-source-stream": "^2.0.0",
     "vinyl-transform": "^1.0.0",
     "watchify": "^3.7.0",
-    "yasme": "^1.0.2"
+    "yasme": "^1.0.6"
   },
   "bugs": "https://github.com/weso/YASHE/issues/",
   "keywords": [
