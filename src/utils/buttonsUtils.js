@@ -161,6 +161,8 @@ var drawButtons = function(yashe){
         var modal = document.getElementById("myModal");
         modal.style.display = "block";
         $('#tableBody').remove();
+        var yasme = require("./yasme.js").yasme;
+        yasme.setValue(yasme.getValue());//yasme.focus() doesn't work
     }));
 
 

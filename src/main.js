@@ -10,7 +10,6 @@ window.console = window.console || {
  */
 const $ = require('jquery');
 const CodeMirror = require('codemirror');
-const YASME = require('yasme');
 const utils = require('./utils/baseUtils.js');
 const yutils = require('yasgui-utils');
 const prefixUtils = require('./utils/prefixUtils.js');
@@ -19,12 +18,12 @@ const syntaxUtils = require('./utils/syntaxUtils.js');
 const tooltipUtils = require('./utils/tooltipUtils.js');
 const formatUtils = require('./utils/formatUtils.js');
 const buttonsUtils = require('./utils/buttonsUtils.js');
-const validateUtils = require('./utils/validateUtils.js');
 const prefixFold = require('./utils/prefixFold.js');
 const autocompletersBase = require('./autocompleters/autocompleterBase.js');
 const Clipboard = require('clipboard');
 
 require('../lib/deparam.js');
+require('./utils/yasme.js');
 require('codemirror/addon/fold/foldcode.js');
 require('codemirror/addon/fold/foldgutter.js');
 require('codemirror/addon/fold/xml-fold.js');
@@ -447,66 +446,4 @@ root.version = {
   'jquery': $.fn.jquery,
   'yasgui-utils': yutils.version,
 };
-
-
-
-$(document).ready(function() {
-  $('.yashe').prepend(
-                $('<div id="myModal" class="modal">').append(
-                  $('<div class="modal-content">')
-                    .append($('<span class="close">&times;</span>'))
-                    .append($('<div id="loader" class="loaderCont"><div class="loader"></div></div>'))
-                    .append($('<div id="modalContent">')
-                      .append($('<div id="shapeMap">')))
-                  
-                
-                )
-              )
-
-
-$('#loader').hide();
-
-var yasme = YASME(document.getElementById('shapeMap'),
-{
-  lineNumbers:true,
-});
-
-
-
-$('#modalContent')
-.append($('<button class="validateBtn">Validate</button>')
-        .click(()=>validateUtils.validate(yasme)))                 
-
-
-yasme.setSize(null,100);
-yasme.setValue('<https://www.wikidata.org/wiki/Q1>@<human>,\n'+
-'<https://www.wikidata.org/wiki/Q2>@<mal>,\n'+
-'<https://www.wikidata.org/wiki/Q3>@<human>,\n'+
-'<https://www.wikidata.org/wiki/Q4>@start');
-
-yasme.refresh();
-
-yashe.setValue("PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \n PREFIX wd: <http://www.wikidata.org/entity/> \n PREFIX wdt: <http://www.wikidata.org/prop/direct/>\n \n start = @<human>\n \n <human> CLOSED {\n wdt:P31 [wd:Q5] *;\n \n }\n")
-
-var modal = document.getElementById("myModal");
-
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-
-})
-
 
