@@ -463,6 +463,7 @@ $(document).ready(function() {
                 $('<div id="myModal" class="modal">').append(
                   $('<div class="modal-content">')
                   .append($('<span class="close">&times;</span>'))
+                  .append($('<div class="loaderCont"><div class="loader"></div></div>'))
                   .append($('<div id="modalContent">').append(
                       $('<div id="shapeMap">'))
                   )
