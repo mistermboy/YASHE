@@ -50,7 +50,7 @@ let formData = params2Form(params);
                 $('#tableBody').remove();
                 $('#modalContent').prepend(
                     $('<table id="tableBody" class="table">').append(
-                      $('<thead>').append(
+                      $('<thead id="thead">').append(
                         $('<tr>').append(
                           $('<th scope="col">Id</th>')
                         ).append(
@@ -64,7 +64,7 @@ let formData = params2Form(params);
                 console.log(data)
                 Object.keys(data.shapeMap).map(s=>{
                   var el = data.shapeMap[s];
-                  $('#tableBody').append(
+                  $('#thead').append(
                     $('<tr>').append(
                       $('<td>').append($('<a href="'+el.node.substring(1,el.node.length-1)+'">').text(el.node))
                     ).append(
