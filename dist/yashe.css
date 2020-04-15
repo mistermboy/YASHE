@@ -760,7 +760,9 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
     vertical-align: middle; }
   .yashe .loaderCont {
     display: grid;
-    justify-content: center; }
+    justify-content: center;
+    margin-top: -5px;
+    margin-bottom: 50px; }
   .yashe .loader {
     border: 16px solid #f3f3f3;
     /* Light grey */

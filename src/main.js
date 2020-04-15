@@ -463,7 +463,7 @@ $(document).ready(function() {
                 $('<div id="myModal" class="modal">').append(
                   $('<div class="modal-content">')
                   .append($('<span class="close">&times;</span>'))
-                  .append($('<div class="loaderCont"><div class="loader"></div></div>'))
+                  .append($('<div id="loader" class="loaderCont"><div class="loader"></div></div>'))
                   .append($('<div id="modalContent">').append(
                       $('<div id="shapeMap">'))
                   )
@@ -471,6 +471,8 @@ $(document).ready(function() {
                 )
               )
 
+
+$('#loader').hide();
 
 var shapeMap = CodeMirror(document.getElementById('shapeMap'),
 {
@@ -512,7 +514,10 @@ window.onclick = function(event) {
 })
 
 function validate(shapeMap){
+  $('#loader').show();
+  $('#modalContent').hide();
 
+ 
   let schemaContent = yashe.getValue();
   let shapeMapContent = shapeMap.getValue();
 
@@ -589,6 +594,12 @@ let formData = params2Form(params);
                     )
                   )
                 })
+
+                setTimeout(() => {
+                  $('#loader').hide();
+                  $('#modalContent').show();  
+                }, 500);
+                
             })
             .catch(function (error) {
                
@@ -597,5 +608,6 @@ let formData = params2Form(params);
             });
 
 
+ 
 }
 
