@@ -71,6 +71,7 @@
     margin-top: 8px;
 }
 
+
 //Bootsrap classes doesn't work on the modal...
 .thead-dark{
     color: #fff;
@@ -78,9 +79,18 @@
     border-color: lighten(#343a40, 7.5%) ;
 }
 
-$table-striped-order:         odd !default;
+
+.table-success{
+    background-color: #d0ffd6 !important;
+}
+
+.table-err{
+    background-color: #ffd2d0 !important;
+}
 
 
+
+$table-striped-order: odd !default;
 .table-striped{
     tbody tr:nth-of-type(#{$table-striped-order}) {
         background-color: rgba(#000, .05);

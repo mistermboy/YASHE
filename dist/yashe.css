@@ -951,6 +951,10 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
     color: #fff;
     background-color: #343a40;
     border-color: #454d55; }
+  .yashe .table-success {
+    background-color: #d0ffd6 !important; }
+  .yashe .table-err {
+    background-color: #ffd2d0 !important; }
   .yashe .table-striped tbody tr:nth-of-type(odd) {
     background-color: rgba(0, 0, 0, 0.05); }
 

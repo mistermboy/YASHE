@@ -65,10 +65,12 @@ let formData = params2Form(params);
               
                 Object.keys(data.shapeMap).map(s=>{
                   var el = data.shapeMap[s];
+                  let succces = 'table-err';
+                  if(el.status == 'conformant')succces = 'table-success';
                   $('#table').append(
                     $('<tbody>')
                     .append(
-                      $('<tr>').append(
+                      $('<tr class='+succces+'>').append(
                         $('<td>').text(s)
                       ).append(
                         $('<td>').append($('<a href="'+el.node.substring(1,el.node.length-1)+'">').text(el.node))
