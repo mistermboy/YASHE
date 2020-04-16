@@ -38,6 +38,7 @@ const NAMESPACE_SHORTCUTS = {
         wdata: 'http://www.wikidata.org/wiki/Special:EntityData/'
     }
 
+
 const WIKIDATA_ENDPOINT= 'https://www.wikidata.org/w/'
 
 

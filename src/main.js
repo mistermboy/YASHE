@@ -366,6 +366,10 @@ root.autoComplete = function(yashe) {
 };
 
 // include the autocompleters we provide out-of-the-box
+
+root.registerAutocompleter('wikidata',
+    require('./autocompleters/wikidata.js'));
+
 root.registerAutocompleter('wikibase',
     require('./autocompleters/wikibase.js'));
 
