@@ -9,6 +9,34 @@ var params2Form = function(params) {
     return formData;
 }
 
+var showQualify = function(node, prefix) {
+    const relativeBaseRegex = /^<internal:\/\/base\/(.*)>$/g;
+    const matchBase = relativeBaseRegex.exec(node);
+    if (matchBase) {
+        const rawNode = matchBase[1];
+        return "<" + rawNode + ">";
+    } else {
+        const iriRegexp = /^<(.*)>$/g;
+        const matchIri = iriRegexp.exec(node);
+        if (matchIri) {
+            const rawNode = matchIri[1];
+            const longNode = "<" + rawNode + ">";
+            for (const key in prefix) {
+                if (rawNode.startsWith(prefix[key])) {
+                    const localName = rawNode.slice(prefix[key].length);
+                    return $('<abbr title='+longNode+key+'>').text(':' + localName);
+                }
+            }
+
+            return $('<a href='+rawNode+'>').text(longNode);
+        }
+    
+        if (node.match(/^[0-9"'_]/)) return node;
+        console.error("Unknown format for node: " + node);
+        return node;
+    }
+}
+
 
 
 var validate = function(yasme){
@@ -47,6 +75,7 @@ let formData = params2Form(params);
             config: { headers: {'Content-Type': 'multipart/form-data' }}
         }).then(response => response.data)
             .then((data) => {
+
                 $('#table').remove();
                 $('#modalContent').prepend(
                   $('<div class="table-responsive">'+
@@ -67,18 +96,24 @@ let formData = params2Form(params);
                   var el = data.shapeMap[s];
                   let succces = 'table-err';
                   if(el.status == 'conformant')succces = 'table-success';
+
+                  let id = $('<td>').text(s);
+                  let node = $('<td>').append(showQualify(el.node,data.nodesPrefixMap));
+                  let shape = showQualify(el.shape,data.shapesPrefixMap);
+                  let details = $('<td>').text(el.status);
+                  if(typeof shape == 'object'){
+                    shape = $('<td>').append(shape);
+                  }else{
+                    shape = $('<td>').text(shape);
+                  }
                   $('#table').append(
                     $('<tbody>')
                     .append(
-                      $('<tr class='+succces+'>').append(
-                        $('<td>').text(s)
-                      ).append(
-                        $('<td>').append($('<a href="'+el.node.substring(1,el.node.length-1)+'">').text(el.node))
-                      ).append(
-                        $('<td>').text(el.shape)
-                      ).append(
-                        $('<td>').text(el.status)
-                      )
+                      $('<tr class='+succces+'>')
+                      .append(id)
+                      .append(node)
+                      .append(shape)
+                      .append(details)
                     )
                   )
                 })
