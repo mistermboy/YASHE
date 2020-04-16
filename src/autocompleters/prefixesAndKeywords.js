@@ -33,7 +33,7 @@ module.exports = function(yashe, name) {
 
       var trie = new Trie()
       Object.keys(matches).forEach(m => {
-        wikiPrefixes+='PREFIX '+p+': <'+matches[m]+'>\n';
+            trie.insert(matches[m]);
       });
 
     
