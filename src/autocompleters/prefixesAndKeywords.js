@@ -15,16 +15,25 @@ module.exports = function(yashe, name) {
 
 
       var cur = yashe.getCursor();
-      let posibles = yashe.getTokenAt(cur).state.possibleNext;
-      let matches = [];
+      var posibles = yashe.getTokenAt(cur).state.possibleNext;
+      console.log(posibles)
+      var matches = [];
       Object.keys(KEYWORDS).forEach(k => {
         if(posibles.indexOf(KEYWORDS[k].toUpperCase())>=0){
           matches.push(KEYWORDS[k])
         }
       });
 
-      let prefixes = rdfUtils.namespaceShortCuts;
-      let wikiPrefixes = '';
+      if(posibles.indexOf('PNAME_NS')){
+        var prefixes = module.exports.PREFIXES
+        Object.keys(prefixes).forEach(p => {
+          matches.push(p+':');
+        })
+      }
+      
+
+      var prefixes = rdfUtils.namespaceShortCuts;
+      var wikiPrefixes = '';
       Object.keys(prefixes).forEach(p => {
           wikiPrefixes+='PREFIX '+p+': <'+prefixes[p]+'>\n';
       });
@@ -33,13 +42,13 @@ module.exports = function(yashe, name) {
 
       var trie = new Trie()
       Object.keys(matches).forEach(m => {
-            trie.insert(matches[m]);
+          trie.insert(matches[m]);
       });
 
     
 
      var completions = trie.autoComplete(token.toLowerCase())
-     console.log(completions)
+
      var final = []
      var list={}
      for(var c in completions){
@@ -47,6 +56,7 @@ module.exports = function(yashe, name) {
         var text = completions[c]
         var displayText = completions[c]
 
+        console.log(module.exports.isInPrefixList(completions[c]))
         if(!module.exports.isInPrefixList(completions[c])){
           text = text.toUpperCase()
         }
@@ -81,7 +91,6 @@ module.exports.isValidCompletionPosition = function(yashe) {
 
 
 module.exports.isInPrefixList = function(completion){
-
   for(var prefix in module.exports.PREFIXES){
       if(completion == prefix+":")return true
   }
