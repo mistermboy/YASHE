@@ -1,5 +1,5 @@
 const YASME = require('yasme');
-const validateUtils = require('./validateUtils.js');
+const validateUtils = require('../utils/validateUtils.js');
 
 $(document).ready(function() {
   $('.yashe').prepend(
