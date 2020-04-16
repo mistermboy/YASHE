@@ -9,6 +9,7 @@ var params2Form = function(params) {
     return formData;
 }
 
+//Labra's code modified to jquery
 var showQualify = function(node, prefix) {
     const relativeBaseRegex = /^<internal:\/\/base\/(.*)>$/g;
     const matchBase = relativeBaseRegex.exec(node);
@@ -88,6 +89,7 @@ let formData = params2Form(params);
                             '<th scope="col">Details</th>'+ 
                           '</tr>'+ 
                         '</thead>'+ 
+                        '<tbody id="tBody"/>'+
                       '</table>'+
                     '<div>')
                 )
@@ -100,22 +102,22 @@ let formData = params2Form(params);
                   let id = $('<td>').text(s);
                   let node = $('<td>').append(showQualify(el.node,data.nodesPrefixMap));
                   let shape = showQualify(el.shape,data.shapesPrefixMap);
-                  let details = $('<td>').text(el.status);
+                  let details = $('<td>').append($('<details><pre>').text(el.reason));
                   if(typeof shape == 'object'){
                     shape = $('<td>').append(shape);
                   }else{
                     shape = $('<td>').text(shape);
                   }
-                  $('#table').append(
-                    $('<tbody>')
+                
+
+                  $('#tBody')
                     .append(
                       $('<tr class='+succces+'>')
                       .append(id)
                       .append(node)
                       .append(shape)
                       .append(details)
-                    )
-                  )
+                    ) 
                 })
 
                 setTimeout(() => {
