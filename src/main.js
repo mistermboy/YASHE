@@ -76,7 +76,6 @@ const extendConfig = function(config) {
   const extendedConfig = $.extend(true, {}, root.defaults, config);
   // I know, codemirror deals with  default options as well.
   // However, it does not do this recursively (i.e. the persistency option)
-
   return extendedConfig;
 };
 /**

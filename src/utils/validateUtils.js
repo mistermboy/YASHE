@@ -43,7 +43,7 @@ var showQualify = function(node, prefix) {
 var validate = function(yasme){
   $('#loader').show();
   $('#modalContent').hide();
-
+  $('#alertValidate').remove();
  
   let schemaContent = yashe.getValue();
   let shapeMapContent = yasme.getValue();
@@ -130,7 +130,9 @@ let formData = params2Form(params);
                 $('#loader').hide();
                 $('#modalContent').show();  
                 console.log('Error doing server request');
-                console.log(error);
+                $('#modalContent').prepend(
+                  $('<div id="alertValidate" class="alert">').text('Something went wrong')
+                )
             });
 
 

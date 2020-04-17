@@ -160,7 +160,8 @@ var drawButtons = function(yashe){
     .click(function(event) {
         var modal = document.getElementById("myModal");
         modal.style.display = "block";
-        $('#tableBody').remove();
+        $('#table').remove();
+        $('#alertValidate').remove();  
         var yasme = require("../shapeMap/yasme.js").yasme;
         yasme.setValue(yasme.getValue());//yasme.focus() doesn't work
     }));

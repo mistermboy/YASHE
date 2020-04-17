@@ -27,6 +27,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
   /* See issue #2901 */
   /* Help users use markselection to safely style text background */
   /* Shutter Out Horizontal */
+  /* The alert message box */
   /* The Modal (background) */ }
   .yashe .cm-s-wiki .cm-shape {
     color: #0F7A50; }
@@ -781,7 +782,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
   .yashe .yashe_validateBtn {
     margin-right: 8px; }
   .yashe .yashe_shareBtn {
-    margin-right: 8px;
+    margin-right: 0px;
     margin-top: 2px; }
   .yashe .shareInput {
     border-radius: 3px;
@@ -889,6 +890,12 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
     white-space: pre-wrap;
     /* css-3 */
     white-space: normal; }
+  .yashe .alert {
+    padding: 10px;
+    background-color: #fc8e86;
+    /* Red */
+    color: white;
+    margin-bottom: 15px; }
   .yashe .modal {
     display: none;
     /* Hidden by default */

@@ -64,6 +64,7 @@
             <select  id="othersSelector" class="form-control">
               <option value="" disabled selected>Other Examples</option>
               <option value="japan">Japan Sarch Metadata</option>
+              <option value="wikibase">Wikibase Instances Autocomplete and Tooltips</option>
             </select>
         </div>
 
@@ -176,15 +177,13 @@
             </ul>
             </div>
             </div>
-
-      
 	    
     <script src="dist/yashe.bundled.min.js"></script>
     <script src="doc/doc.min.js"></script>
     <script type="text/javascript">
     
       var yashe = YASHE(document.getElementById('showcase'), {
-        persistent:null
+        persistent:null,
       });
 
       yashe.setSize(1135,400);
