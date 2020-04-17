@@ -15,8 +15,12 @@ module.exports = function(yashe, name) {
 
 
       var cur = yashe.getCursor();
+      console.log(yashe.getTokenAt(cur))
       var posibles = yashe.getTokenAt(cur).state.possibleNext;
+
       console.log(posibles)
+
+
       var matches = [];
       Object.keys(KEYWORDS).forEach(k => {
         if(posibles.indexOf(KEYWORDS[k].toUpperCase())>=0){
@@ -24,7 +28,7 @@ module.exports = function(yashe, name) {
         }
       });
 
-      if(posibles.indexOf('PNAME_NS')){
+      if(posibles.indexOf('PNAME_NS')>=0){
         var prefixes = module.exports.PREFIXES
         Object.keys(prefixes).forEach(p => {
           matches.push(p+':');
@@ -38,8 +42,11 @@ module.exports = function(yashe, name) {
           wikiPrefixes+='PREFIX '+p+': <'+prefixes[p]+'>\n';
       });
       
-      matches.push('wikidata-prefixes');
-
+      console.log(posibles.indexOf('PREFIX'))
+      if(posibles.indexOf('PREFIX')>0){
+        matches.push('wikidata-prefixes');  
+      }
+    
       var trie = new Trie()
       Object.keys(matches).forEach(m => {
           trie.insert(matches[m]);
@@ -55,14 +62,17 @@ module.exports = function(yashe, name) {
 
         var text = completions[c]
         var displayText = completions[c]
-
-        console.log(module.exports.isInPrefixList(completions[c]))
         if(!module.exports.isInPrefixList(completions[c])){
           text = text.toUpperCase()
         }
 
         if(completions[c]=='wikidata-prefixes'){
           text = wikiPrefixes;
+        }
+
+        if(completions[c]=='and_token'){
+          text = 'AND';
+          displayText='and';
         }
 
         list =  {
@@ -106,7 +116,7 @@ var KEYWORDS = [
   'import',
   'external',
   'or',
-  'and',
+  'and_token',
   'not"',
   'iri',
   'bnode',

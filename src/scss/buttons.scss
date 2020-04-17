@@ -231,15 +231,20 @@
 	
 
 
-	.validateBtn{
-
+	.yashe_shareBtn{
+		margin-right: 8px;
+		margin-top: 2px;
+	}
 	
-	
+	.shareInput{
+		border-radius: 3px;
+		width: 250px;
+		border:1px solid #222;
 	}
 	
 
 	/* Shutter Out Horizontal */
-.validateBtn {
+	.validateBtn {
 	display: inline-block;
 	vertical-align: middle;
 	-webkit-transform: perspective(1px) translateZ(0);

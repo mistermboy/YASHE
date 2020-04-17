@@ -40,6 +40,8 @@ YASHE.defaults = $.extend(true, {}, YASHE.defaults, {
   fixedGutter: true,
   syntaxErrorCheck: true,
   showTooltip: true,
+  showShareButton:true,
+  showValidateButton:true,
   showUploadButton: true,
   showDownloadButton: true,
   showCopyButton: true,
@@ -89,6 +91,8 @@ YASHE.defaults = $.extend(true, {}, YASHE.defaults, {
     }
   },
   cursorHeight: 0.9,
+  createShareLink: YASHE.createShareLink,
+  consumeShareLink: YASHE.consumeShareLink,
 
   
   /**

@@ -780,6 +780,13 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
     display: inline-block; }
   .yashe .yashe_validateBtn {
     margin-right: 8px; }
+  .yashe .yashe_shareBtn {
+    margin-right: 8px;
+    margin-top: 2px; }
+  .yashe .shareInput {
+    border-radius: 3px;
+    width: 250px;
+    border: 1px solid #222; }
   .yashe .validateBtn {
     display: inline-block;
     vertical-align: middle;

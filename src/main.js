@@ -293,6 +293,14 @@ const postProcessCmElement = function(yashe) {
     tooltipUtils.removeWikiToolTip();
   });
 
+  /**
+   * Fires when the editor is scrolled.
+   * In this case, YASHE removes the SharedLink input
+   */
+  yashe.on('focus', function() {
+    $('.shareInput').remove();
+  });
+
 
   /**
    * Wikidata Tooltip Listener
@@ -306,6 +314,32 @@ const postProcessCmElement = function(yashe) {
       }, 300)
   );
 
+  /**
+  * get url params. first try fetching using hash. If it fails, try the regular query parameters (for backwards compatability)
+  */
+  var getUrlParams = function() {
+    //first try hash
+    var urlParams = null;
+    if (window.location.hash.length > 1) {
+      //firefox does some decoding if we're using window.location.hash (e.g. the + sign in contentType settings)
+      //Don't want this. So simply get the hash string ourselves
+      urlParams = $.deparam(location.href.split("#")[1]);
+    }
+    if ((!urlParams || !("query" in urlParams)) && window.location.search.length > 1) {
+      //ok, then just try regular url params
+      urlParams = $.deparam(window.location.search.substring(1));
+    }
+    return urlParams;
+  };
+
+  //Consume Share Link
+  if(yashe.options.consumeShareLink) {
+    yashe.options.consumeShareLink(yashe, getUrlParams());
+    window.addEventListener("hashchange", function() {
+      yashe.options.consumeShareLink(yashe, getUrlParams());
+    });
+  }
+  
 
   // on first load, check as well
   // (our stored or default query might be incorrect)
@@ -441,6 +475,44 @@ root.copyLineDown = function(yashe) {
 root.doAutoFormat = function(yashe) {
   formatUtils.doAutoFormat(yashe);
 };
+
+/**
+ * Create a share link
+ *
+ * @method YASHE.createShareLink
+ * @param {doc} YASHE document
+ * @default {query: doc.getValue()}
+ * @return object
+ */
+root.createShareLink = function(yashe) {
+  var urlParams = {};
+  if (window.location.hash.length > 1) urlParams = $.deparam(window.location.hash.substring(1));
+  urlParams["shapes"] = yashe.getValue();
+  return urlParams;
+};
+
+/**
+ * Consume the share link, by parsing the document URL for possible yashe arguments, and setting the appropriate values in the YASHE doc
+ *
+ * @method YASHE.consumeShareLink
+ * @param {doc} YASHE document
+ */
+root.consumeShareLink = function(yashe, urlParams) {
+  if (urlParams && urlParams.shapes) {
+    yashe.setValue(urlParams.shapes);
+  }
+};
+
+
+
+root.getUrlArguments = function(yashe, config) {
+  var data = [
+    {
+      name: 'shapes',
+      value:  yashe.getValue()
+    }
+  ];
+}
 
 
 require('./config/defaults.js');

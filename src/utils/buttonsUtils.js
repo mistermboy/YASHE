@@ -166,10 +166,37 @@ var drawButtons = function(yashe){
     }));
 
 
-  
-    yashe.buttons.append(validateButton); 
+    var shareLinkBtn = $("<div>", {
+      class: "downloadBtns"
+    }).append($(yutils.svg.getElement(imgs.share))
+    .addClass("yashe_shareBtn")
+    .attr('id','shareBtn')
+    .attr("title", "ShareLink")
+    .click(function() {
+        let urlS = window.location.href.split('#')[0]+'#'+$.param(yashe.options.createShareLink(yashe));
+        $('.shareInput').remove();
+        $('.yashe_buttons')
+        .prepend($('<input>')
+          .attr('id','inputLink')
+          .attr('type','text')
+          .attr("class", "shareInput").val(urlS)) 
+        $('.shareInput').select(); 
+    }));
+
+
+   
+
 
     //Draw buttons
+    if(yashe.options.showShareButton){
+       yashe.buttons.append(shareLinkBtn); 
+    }
+  
+    if(yashe.options.showValidateButton){
+      yashe.buttons.append(validateButton); 
+    }
+
+
     if(yashe.options.showUploadButton){
       yashe.buttons.append(uploadButton);
     }
