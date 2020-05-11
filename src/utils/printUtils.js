@@ -82,10 +82,19 @@ function getSeparator(size){
     return separator;
 }   
 
+
+function getLongestPrefix(prefixes){
+    return prefixes.reduce((acc,p) =>{
+        if(p.prefixName.length>acc)acc=p.prefixName.length;
+        return acc;
+    },0);
+}
+
 module.exports ={
     getSeparators:getSeparators,
     getLongestElements:getLongestElements,
-    getSeparator:getSeparator
+    getSeparator:getSeparator,
+    getLongestPrefix:getLongestPrefix
 
 }
 

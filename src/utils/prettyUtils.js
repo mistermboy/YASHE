@@ -20,6 +20,8 @@ let Prefix =require( '../shexEntities/others/prefix');
 let ShapeRef =require( '../shexEntities/others/shapeRef');
 let ValueSetValue =require( '../shexEntities/others/valueSetValue');
 
+let {getLongestPrefix,getSeparator} = require('./printUtils.js');
+
 
 let references;
 let editor;
@@ -32,10 +34,36 @@ let editor;
 function prettify(yashe){
     editor = yashe;
     let tokens = getTokens(yashe);
-    let defShapes = getDefinedShapes(tokens);
-    let shapes = getShapes(defShapes);
-    console.log(shapes)
+
+    let pTokens = getPrefixesTokens(tokens);
+    let prefixes = getPrefixes(pTokens);
+
+    let starts = getStarts(tokens);
+
+    let sTokens = getShapesTokens(tokens);
+    let shapes = getShapes(sTokens);
+
+    updateShapeRefs(shapes);
+    //console.log(shapes)
+    
+
+    let str = getPrefixesStr(prefixes)+"\n";
+    str+=starts.reduce((acc,s)=>{
+        return acc+=s+"\n";
+    },"");
+
+    yashe.setValue(shapes.reduce((acc,s) => {
+        return acc+=s.toString();
+    },str));
 }
+
+function getPrefixesStr(prefixes){
+    return prefixes.reduce((acc,p)=>{
+        let dif = getLongestPrefix(prefixes) - p.prefixName.length;
+        return acc+='PREFIX '+p.prefixName+getSeparator(dif)+p.prefixValue+'\n';
+    },'');
+}
+
 
 function getTokens(){
     let tokens =[];
@@ -51,13 +79,52 @@ function getTokens(){
     return tokens;
 }
 
+function getPrefixesTokens(tokens){
+    let prefix = [];
+    let prefixCont = 0;
+    return tokens.reduce((acc,element)=>{
+        if(element.type == 'keyword' && element.string.toLowerCase()=='prefix'){
+            prefix = [];
+            prefix.push(element)
+            acc[prefixCont]=prefix;
+            prefixCont++;
+        }else{
+
+            if(element.type=='prefixDelcAlias' || element.type=='prefixDelcIRI'){
+                prefix.push(element);
+            }
+            
+        }
+
+        return acc;
+
+    },[]);
+}
+
+function getStarts(tokens){
+    let starts=[];
+    for(let i=0;i<tokens.length;i++){
+        if(tokens[i].type == 'keyword' && tokens[i].string.toLowerCase()=='start'){
+            let str = tokens[i].string;
+            str+="=";
+            i++;
+            i++;
+            str+=tokens[i].string
+            starts.push(str);
+        }
+    }
+    return starts;
+}
+
+
+
 /**
 *   Split the tokens into Shapes
 *   @param {Array} Tokens
 *   @return {Array} Defined Shapes (Array of Token's arrays)
 *
  */
-function getDefinedShapes(tokens){
+function getShapesTokens(tokens){
     let shape = []
     let brackets=0
     let shapeCont = 0;
@@ -79,14 +146,21 @@ function getDefinedShapes(tokens){
     },[]);
 }
 
+function getPrefixes(pTokens){
+    return pTokens.reduce((acc,prefix)=>{
+        acc.push(new Prefix(prefix[1].string,prefix[2].string));
+        return acc;
+    },[]);
+}
+
 /**
 * Get the Shapes objects
 * @param {Array} Shapes (Array of Token's arrays)
 *
  */
-function getShapes(defShapes){
+function getShapes(sTokens){
     references = [];
-    return defShapes.reduce((acc,shape)=>{
+    return sTokens.reduce((acc,shape)=>{
         let id  = acc.length;
         let shapeDef = shape[0].string;
         let sTokens = getBeforeTriplesTokens(shape);
@@ -277,15 +351,15 @@ function getContent(id,tokens) {
           cardinality=getCardinality(token.string);
         }
         
-        if(isNotAllowed(token))Codemirror.signal(editor,'forceError');
+        //if(isNotAllowed(token))Codemirror.signal(editor,'forceError');
         
         // Force errors in case to find one of the following tokens
         if(token.string == '~'){
-            Codemirror.signal(editor,'forceError','EXCLUSION_ERR');
+          //  Codemirror.signal(editor,'forceError','EXCLUSION_ERR');
         }
 
         if(token.string == '('){
-            Codemirror.signal(editor,'forceError','PARENTHESIS_ERR');
+          //  Codemirror.signal(editor,'forceError','PARENTHESIS_ERR');
         }
             
   
@@ -422,10 +496,16 @@ function updateShapeRefs(shapes) {
     for(let r in references){
         let element = references[r];
         if(element.ref!=undefined){
-            let shapeRef = shexUtils.getShapeByName(shapes,element.ref);
+            let shapeRef = getShapeByName(shapes,element.ref);
             element.entity.shapeRef.shape = shapeRef;
         }
     }
+}
+
+function getShapeByName(shapes,name) {
+    return shapes.filter(s=>{
+        return s.type.toString() == name;
+    })[0];
 }
 
 
@@ -508,9 +588,5 @@ const PRIMITIVES = ['string','integer','date','boolean'];
 
 module.exports = {
     prettify:prettify,
-    getTokens:getTokens,
-    getDefinedShapes:getDefinedShapes,
-    getShapes:getShapes,
-    updateShapeRefs:updateShapeRefs
 }
 

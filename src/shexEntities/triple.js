@@ -6,7 +6,7 @@ let PrefixedIri =require( './types/concreteTypes/prefixedIri');
 let Primitive =require( './types/concreteTypes/primitive');
 let ShapeRef =require( './others/shapeRef');
 let Prefix =require( './others/prefix');
-//let {getLongestElements,getSeparators,getSeparator} =require( '../utils/printUtils');
+let {getLongestElements,getSeparators,getSeparator} =require( '../utils/printUtils');
 
 class Triple extends Node{
 

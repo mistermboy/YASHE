@@ -4,7 +4,7 @@ let BlankKind =require( './types/concreteTypes/kinds/blankKind');
 let Prefix =require( './others/prefix');
 let Primitive =require( './types/concreteTypes/primitive');
 let ShapeRef =require( './others/shapeRef');
-let getSeparators,getLongestElements =require( '../utils/printUtils');
+let {getSeparators,getLongestElements} =require( '../utils/printUtils');
 
 class Shape extends Node{
 
