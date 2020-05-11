@@ -68,7 +68,64 @@ var validate = function(yasme){
 
 let formData = params2Form(params);
 
+  $.ajax({
+    url: 'http://rdfshape.weso.es:8080/api/schema/validate',
+    data: formData,
+    processData: false,
+    contentType: false,
+    type: 'POST',
+    success: function(data){
+      $('#table').remove();
+                $('#modalContent').prepend(
+                  $('<div class="table-responsive">'+
+                      '<table id="table" class="table table-striped">'+ 
+                        '<thead id="thead" class="thead-dark">'+ 
+                          '<tr>'+ 
+                            '<th scope="col">Id</th>'+ 
+                            '<th scope="col">Node</th>'+ 
+                            '<th scope="col">Shape</th>'+ 
+                            '<th scope="col">Details</th>'+ 
+                          '</tr>'+ 
+                        '</thead>'+ 
+                        '<tbody id="tBody"/>'+
+                      '</table>'+
+                    '<div>')
+                )
+              
+                Object.keys(data.shapeMap).map(s=>{
+                  var el = data.shapeMap[s];
+                  let succces = 'table-err';
+                  if(el.status == 'conformant')succces = 'table-success';
 
+                  let id = $('<td>').text(s);
+                  let node = $('<td>').append(showQualify(el.node,data.nodesPrefixMap));
+                  let shape = showQualify(el.shape,data.shapesPrefixMap);
+                  let details = $('<td>').append($('<details><pre>').text(el.reason));
+                  if(typeof shape == 'object'){
+                    shape = $('<td>').append(shape);
+                  }else{
+                    shape = $('<td>').text(shape);
+                  }
+                
+
+                  $('#tBody')
+                    .append(
+                      $('<tr class='+succces+'>')
+                      .append(id)
+                      .append(node)
+                      .append(shape)
+                      .append(details)
+                    ) 
+                })
+
+                setTimeout(() => {
+                  $('#loader').hide();
+                  $('#modalContent').show();  
+                }, 500);
+    }
+});
+
+/* 
     axios({
             method: 'post',
             url: 'http://rdfshape.weso.es:8080/api/schema/validate',
@@ -133,7 +190,7 @@ let formData = params2Form(params);
                 $('#modalContent').prepend(
                   $('<div id="alertValidate" class="alert">').text('Something went wrong')
                 )
-            });
+            }); */
 
 
  

@@ -13,6 +13,7 @@ const CodeMirror = require('codemirror');
 const utils = require('./utils/baseUtils.js');
 const yutils = require('yasgui-utils');
 const prefixUtils = require('./utils/prefixUtils.js');
+const prettyUtils = require('./utils/prettyUtils.js');
 const tokenUtils = require('./utils/tokenUtils.js');
 const syntaxUtils = require('./utils/syntaxUtils.js');
 const tooltipUtils = require('./utils/tooltipUtils.js');
@@ -369,6 +370,12 @@ root.storeContent = function(yashe) {
         'month', yashe.options.onQuotaExceeded);
   }
 };
+
+
+root.pretty = function(yashe){
+  prettyUtils.prettify(yashe);
+}
+
 
 /**
  * Checks YASHE content syntax

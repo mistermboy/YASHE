@@ -130,7 +130,8 @@ function Editor() {
     return  (<div ref={divRef}/>);
 }
 
-export default Editor;
+
+module.exports =  Editor;
 ```
 
 

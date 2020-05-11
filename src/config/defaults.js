@@ -75,6 +75,8 @@ YASHE.defaults = $.extend(true, {}, YASHE.defaults, {
     "Cmd-S": YASHE.storeConten,
     "Ctrl-Enter": YASHE.executeQuery,
     "Cmd-Enter": YASHE.executeQuery,
+    "Ctrl-F": YASHE.pretty,
+    "Cmd-F": YASHE.pretty,
     F11: function(yashe) {
       yashe.setOption("fullScreen", !yashe.getOption("fullScreen"));
       if(yashe.getOption("fullScreen")){
