@@ -32,7 +32,7 @@ var showQualify = function(node, prefix) {
             return $('<a href='+rawNode+'>').text(longNode);
         }
     
-        if (node.match(/^[0-9"'_]/)) return node;
+        if (node && node.match(/^[0-9"'_]/)) return node;
         console.error("Unknown format for node: " + node);
         return node;
     }
@@ -69,7 +69,7 @@ var validate = function(yasme){
 let formData = params2Form(params);
 
   $.ajax({
-    url: 'http://rdfshape.weso.es:8080/api/schema/validate',
+    url: 'https://rdfshape.weso.es:8080/api/schema/validate',
     data: formData,
     processData: false,
     contentType: false,
